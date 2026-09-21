@@ -10,10 +10,10 @@ bmilst = []
 
 def get_bmi(cmlst, kglst):
     global bmilst
-    idx = 0
-    for _ in range(len(cmlst)):
-        bmilst.append(f"{kglst[idx] / (cmlst[0] / 100) ** 2:.2f}")
-        idx += 1
+    # idx = 0
+    for idx in range(len(cmlst)):
+        bmilst.append(f"{kglst[idx] / (cmlst[idx] / 100) ** 2:.2f}")
+        # idx += 1
 
 def test():
     get_bmi(cm_stu, kg_stu)
