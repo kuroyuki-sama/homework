@@ -2,3 +2,24 @@
 # 파일입출력을 이용하여 health.txt를 불러들여 읽는다
 # 정규식을 이용하여 전화번호, 이름, 키, 몸무게, [비]정상 을 split() 하여 이차원 배열로 저장한다
 # BMI 는 kg / (cm / 100) ** 2 로 계산할 수 있다.
+import re
+import turtle as t
+
+phone = r'010-[0-9]{4}-[0-9]{4}'
+name = r'["가"-"힣]*'
+cm = r'[0-9]*cm'
+kg = r'[0-9]*kg'
+
+def get_bmi(cmlst, kglst):
+    global bmilst
+    idx = 0
+    for _ in range(len(cmlst)):
+        bmilst.append(f"{kglst[idx] / (cmlst[0] / 100) ** 2:.2f}")
+        idx += 1
+
+def test():
+    # get_bmi(cm_stu, kg_stu)
+    print(bmilst)
+
+if __name__ == "__main__":
+    test()
