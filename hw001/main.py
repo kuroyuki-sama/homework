@@ -12,11 +12,16 @@
 
 import re
 import turtle as t
+f = open("health.txt", "r", encoding="utf-8")
 
-phone = r'010-[0-9]{4}-[0-9]{4}'
-name = r'["가"-"힣]*'
-cm = r'[0-9]*cm'
-kg = r'[0-9]*kg'
+phone = re.compile(r'010-[0-9]{4}-[0-9]{4}')
+name = re.compile(r'["가"-"힣]*')
+cm = re.compile(r'[0-9]*cm')
+kg = re.compile(r'[0-9]*kg')
+user_list = []
+
+if phone.match(f.readline()):
+    user_list.append(f.readline().split().strip())
 
 def get_bmi(cmlst, kglst):
     global bmilst
