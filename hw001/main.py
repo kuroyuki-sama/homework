@@ -14,25 +14,38 @@ import re
 import turtle as t
 f = open("health.txt", "r", encoding="utf-8")
 
+# -- 정규식
 phone = re.compile(r'010-[0-9]{4}-[0-9]{4}')
-name = re.compile(r'["가"-"힣]*')
-cm = re.compile(r'[0-9]*cm')
-kg = re.compile(r'[0-9]*kg')
+name = re.compile(r'[가-힣]+')
+cm = re.compile(r'[0-9]+cm')
+kg = re.compile(r'[0-9]+kg')
+
+# -- 기본 베이스
 user_list = []
+user_list.append(list(f.readlines().split()))
+# userlist에 전번, 이름, 키, 몸무게 순으로 저장 -> 정보만 바꾸는 코드 작성해야함
 
-if phone.match(f.readline()):
-    user_list.append(f.readline().split().strip())
+user_info = [[None for _ in range(6)] for _ in range(len(user_list))]
+num = 0
+for p_num in user_list:
+    for info in p_num:
+        if phone.match(info): user_info[num][0] = info
+        elif name.match(info): user_info[num][1] = info
+        elif cm.match(info): user_info[num][2] = info.replace("cm", "")
+        elif kg.match(info): user_info[num][3] = info.replace("kg", "")
+    num += 1
 
-def get_bmi(cmlst, kglst):
-    global bmilst
-    idx = 0
-    for _ in range(len(cmlst)):
-        bmilst.append(f"{kglst[idx] / (cmlst[0] / 100) ** 2:.2f}")
-        idx += 1
+# -- bmi 계산
+bmi_list = []
+for person_list in user_info:
+    bmi:float = person_list[3] / (person_list[2] / 100) ** 2
+    # 저체중 : 18.5- , 정상 : 18.5 ~ 30-, 비만 : 30+
+    bmi_list.append(f"{bmi:.2f}")
 
-def test():
-    # get_bmi(cm_stu, kg_stu)
-    print(bmilst)
+for num in range(len(bmi_list)):
+    user_info[num][4] = bmi_list[num]
+    if (bmi_list[num] < 18.5): user_info[num][5] = "저체중"
+    elif (18.5 <= bmi_list[num] < 30): user_info[num][5] = "정상"
+    elif (bmi_list[num] >= 30): user_info[num][5] = "비만"
 
-if __name__ == "__main__":
-    test()
+# -- 출력
