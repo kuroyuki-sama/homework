@@ -18,12 +18,17 @@ filepath = os.path.join(current_dir, "health.txt")
 f = open(filepath, "r", encoding="utf-8")
 
 # -- 정규식
+<<<<<<< HEAD
 phone = re.compile(r'015-[0-9]{4}-[0-9]{4}')
+=======
+phone = re.compile(r'010-[0-9]{4}-[0-9]{4}')
+>>>>>>> 29f354d753a7fcc1622a0897556382ed07de8ba9
 name = re.compile(r'[가-힣]+')
 cm = re.compile(r'[0-9]+cm')
 kg = re.compile(r'[0-9]+kg')
 
 # -- 기본 베이스
+<<<<<<< HEAD
 # try-except 로 EOFError가 될떄까지 (안씀)
 user_list = []
 try:
@@ -33,6 +38,10 @@ try:
     print("health.txt 데이터 불러오기 완료")
 except:
     print("health.txt 데이터 불러오기 실패")
+=======
+user_list = []
+user_list.append(list(f.readlines().split()))
+>>>>>>> 29f354d753a7fcc1622a0897556382ed07de8ba9
 # userlist에 전번, 이름, 키, 몸무게 순으로 저장 -> 정보만 바꾸는 코드 작성해야함
 
 user_info = [[None for _ in range(6)] for _ in range(len(user_list))]
