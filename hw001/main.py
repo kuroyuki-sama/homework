@@ -31,9 +31,9 @@ try:
     for line in f:
         if line.strip():
             user_list.append(line.split())
-    print("health.txt 데이터 불러오기 완료")
+    print("-health.txt 데이터 불러오기 완료")
 except:
-    print("health.txt 데이터 불러오기 실패")
+    print("-health.txt 데이터 불러오기 실패")
 # userlist에 전번, 이름, 키, 몸무게 순으로 저장 -> 정보만 바꾸는 코드 작성해야함
 
 user_info = [[None for _ in range(6)] for _ in range(len(user_list))]
@@ -49,17 +49,20 @@ for p_num in user_list:
 # -- bmi 계산
 try:
     bmi_list = []
+    print("bmi 값 출력 : ", end=" ")
     for person_list in user_info:
-        bmi:float = int(person_list[3]) / (int(person_list[2]) / 150) ** 2
+        bmi:float = int(person_list[3]) / (int(person_list[2]) / 100) ** 2
         # 저체중 : 18.5- , 정상 : 18.5 ~ 30-, 비만 : 30+
         bmi_list.append(round(bmi, 2))
-
+        print(str(round(bmi, 2)), end=" ")
+    print()
+        
     for num in range(len(bmi_list)):
-        user_info[num][4] = bmi_list[num]
-        if (bmi_list[num] < 18.5): user_info[num][5] = "저체중"
-        elif (18.5 <= bmi_list[num] and bmi_list[num] < 30): user_info[num][5] = "정상"
-        elif (bmi_list[num] >= 30): user_info[num][5] = "비만"
-    print("bmi 계산 완료")
+        user_info[num][4] = str(bmi_list[num])
+        if (float(bmi_list[num]) < 18.5): user_info[num][5] = "저체중"
+        elif (18.5 <= float(bmi_list[num]) < 30): user_info[num][5] = "정상"
+        elif (float(bmi_list[num]) >= 30): user_info[num][5] = "비만"
+    print("-bmi 계산 완료")
 except:
     print("bmi 계산 실패")
     
@@ -69,11 +72,11 @@ cursor = t.Turtle()
 cursor.penup()
 cursor.goto(-300, 300)
 
-cursor.write(f"{"전화번호":<15}{"이름":<15}{"키(cm)":<15}{"몸무게(kg)":<15}{"BMI":<15}{"소견":<15}")
+cursor.write(f"{"전화번호":<15}{"이름":<5}{"키(cm)":<10}{"몸무게(kg)":<10}{"BMI":<10}{"소견":<5}", font=("맑은 고딕", 15))
 for people in range(len(user_list)):
     cursor.goto(-300, 300 - ((people + 1) * 30))
-    for text in user_info[people]:
-        cursor.write(f"{text:<15}", font=("Arial", 15), move=True)
+    row = user_info[people]
+    cursor.write(f"{row[0]:<15}{row[1]:<5}{f"{row[2]}cm":<10}{f"{row[3]}kg":<13}{row[4]:<10}{row[5]:<5}", font=("맑은 고딕", 15), move=True)
 
 t.exitonclick()
 
