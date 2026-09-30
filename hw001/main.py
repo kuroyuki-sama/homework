@@ -18,7 +18,6 @@ filepath = os.path.join(current_dir, "health.txt")
 f = open(filepath, "r", encoding="utf-8")
 
 # -- 정규식
-phone = re.compile(r'015-[0-9]{4}-[0-9]{4}')
 phone = re.compile(r'010-[0-9]{4}-[0-9]{4}')
 name = re.compile(r'[가-힣]+')
 cm = re.compile(r'[0-9]+cm')
@@ -73,8 +72,9 @@ cursor.penup()
 cursor.goto(-300, 300)
 
 cursor.write(f"{"전화번호":<15}{"이름":<5}{"키(cm)":<10}{"몸무게(kg)":<10}{"BMI":<10}{"소견":<5}", font=("맑은 고딕", 15))
+cursor.write("=" * 22)
 for people in range(len(user_list)):
-    cursor.goto(-300, 300 - ((people + 1) * 30))
+    cursor.goto(-300, 300 - ((people + 2) * 30))
     row = user_info[people]
     cursor.write(f"{row[0]:<15}{row[1]:<5}{f"{row[2]}cm":<10}{f"{row[3]}kg":<13}{row[4]:<10}{row[5]:<5}", font=("맑은 고딕", 15), move=True)
 
