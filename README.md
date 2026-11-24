@@ -33,5 +33,5 @@ git branch
   feature-B
   feature-C
 
-
-여기서 * 표시가 현재 자신이 작업하고 있는 브랜치야.
+※ main 브렌치에 있는 내용 불러오는 명령어
+git pull origin main
